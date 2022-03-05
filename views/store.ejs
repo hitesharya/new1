@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+
+    
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+
+
+    <title>Store-Locater - Add store</title>
+
+
+    
+</head>
+<body>
+    <div class="container my-3">
+        <h1 class="display-4 text-center"><i class="fas fa-map-marked mr-4"></i>Store-Locater</h1>
+
+        <a href="" class="btn btn-success mb-4">Add Store</a>
+        <div id="map" style="width: 100%; height: 500px; border-radius: 5px;"></div>
+
+    </div>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaGl0ZXNoMDAiLCJhIjoiY2t2eGx5eDU5MGxxMDJ2cDR6ZGQ3eTI3aiJ9.Eq4G4EmjGP02pFwftbg74A';
+        var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11'
+        });
+
+
+        function loadMap(){
+            map.on('load', () => {
+const width = 64; // The image will be 64 pixels square
+const bytesPerPixel = 4; // Each pixel is represented by 4 bytes: red, green, blue, and alpha.
+const data = new Uint8Array(width * width * bytesPerPixel);
+ 
+for (let x = 0; x < width; x++) {
+for (let y = 0; y < width; y++) {
+const offset = (y * width + x) * bytesPerPixel;
+data[offset + 0] = (y / width) * 255; // red
+data[offset + 1] = (x / width) * 255; // green
+data[offset + 2] = 128; // blue
+data[offset + 3] = 255; // alpha
+}
+}
+ 
+map.addImage('gradient', { width: width, height: width, data: data });
+ 
+map.addSource('point', {
+'type': 'geojson',
+'data': {
+'type': 'FeatureCollection',
+'features': [
+{
+'type': 'Feature',
+'geometry': {
+'type': 'Point',
+'coordinates': [0, 0]
+}
+}
+]
+}
+});
+map.addLayer({
+'id': 'points',
+'type': 'symbol',
+'source': 'point',
+'layout': {
+'icon-image': 'gradient'
+}
+});
+});
+
+        }
+        </script>
+</body>
+</html>
