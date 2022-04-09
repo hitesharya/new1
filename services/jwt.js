@@ -3,7 +3,9 @@ const jwt = require('jsonwebtoken');
 class jwtService{
      verifyToken= async (req,res,next)=>{
          let token = req.body.token;
-         console.log("chal be kuuuttteeeee")
+         console.log("chal be kuuuttteeeee");
+         console.log("chal ------------------------------be kuuuttteeeee")
+         
          
  console.log(token)
       let data = await  jwt.verify(token,process.env.JWT_SECRET_KEY)
