@@ -1,1 +1,1 @@
-console.log("restore good and again");
+console.log("vanishh");
